@@ -17,7 +17,8 @@ namespace pt_examen
             int option = 0;
             do
             {
-                Console.Write("Please specify your option:");
+                Console.WriteLine("Please specify your option:");
+                PrintOptions(text);
                 string optionFromUser = Console.ReadLine();
                 while(string.IsNullOrEmpty(optionFromUser))
                 {
@@ -36,10 +37,45 @@ namespace pt_examen
                         Console.WriteLine(text);
                         break;
 
+                    case 3:
+                        text = InsertSubString(text);
+                        Console.WriteLine(text);
+                        break;
+
+                    case 4:
+                        text = ToUpperCase(text);
+                        Console.WriteLine(text);
+                        break;
+
+                    case 5:
+                        text = ToLowerCase(text);
+                        Console.WriteLine(text);
+                        break;
+
                 }
                 
             }
             while (option > 0);
+        }
+
+        public static void ShowResult(string result)
+        {
+            Console.WriteLine();
+            Console.WriteLine(result);
+        }
+
+        public static void PrintOptions(string text)
+        {
+            Console.Clear();
+            Console.WriteLine("1. Replace substring");
+            Console.WriteLine("2. Remove substring");
+            Console.WriteLine("3. Insert substring");
+            Console.WriteLine("4. Get text to upper case");
+            Console.WriteLine("5. Get text to lower case");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Hit 0 to quit");
+
+            ShowResult(text);
         }
 
         public static string ReplaceSubString(string text)
@@ -73,6 +109,34 @@ namespace pt_examen
                 i = text.IndexOf(stringToBeRemoved);
             }
             return text;
+        }
+
+        public static string InsertSubString(string text)
+        {
+            Console.Write("Plese enter the substring you want to insert:");
+            string stringToInsert = Console.ReadLine();
+            while (string.IsNullOrEmpty(stringToInsert))
+            {
+                CheckForNullOrEmptyString(stringToInsert);
+            }
+            Console.WriteLine("Please enter the starting point of te insert you want to make");
+            string optionFromUser = Console.ReadLine();
+            while(string.IsNullOrEmpty(optionFromUser))
+            {
+                CheckForNullOrEmptyString(optionFromUser);
+            }
+            int i = Convert.ToInt32(optionFromUser);
+            return text.Insert(i, stringToInsert);
+        }
+
+        public static string ToUpperCase(string text)
+        {
+            return text.ToUpper();
+        }
+
+        public static string ToLowerCase(string text)
+        {
+            return text.ToLower();
         }
 
 
