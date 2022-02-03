@@ -6,52 +6,84 @@ namespace pt_examen
     {
         static void Main(string[] args)
         {
-            //ComapreKidsAge();
-            SumOfNumbersFromUser();
+            Console.WriteLine("Welcome !");
+            Console.WriteLine("Please enter a word:");
+            string text = Console.ReadLine();
+            while(String.IsNullOrEmpty(text))
+            {
+                Console.WriteLine("You have to write something...try again: ");
+                text = Console.ReadLine();
+            }
+            int option = 0;
+            do
+            {
+                Console.Write("Please specify your option:");
+                string optionFromUser = Console.ReadLine();
+                while(string.IsNullOrEmpty(optionFromUser))
+                {
+                    CheckForNullOrEmptyString(optionFromUser);
+                }
+                option = Convert.ToInt32(optionFromUser);
+                switch (option)
+                {
+                    case 1:
+                        text = ReplaceSubString(text);
+                        Console.WriteLine(text); ;
+                        break;
 
+                    case 2:
+                        text = RemoveSubString(text);
+                        Console.WriteLine(text);
+                        break;
+
+                }
+                
+            }
+            while (option > 0);
         }
 
-        public static void ComapreKidsAge()
+        public static string ReplaceSubString(string text)
         {
-            int ageX = Convert.ToInt32(Console.ReadLine());
-            int ageY = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Please enter the substring you want to change:");
+            string stringToBeReplaced = Console.ReadLine();
+            while (String.IsNullOrEmpty(stringToBeReplaced))
+            {
+                CheckForNullOrEmptyString(stringToBeReplaced);
+            }
+            string stringToReplaceWith = Console.ReadLine();
+            while (String.IsNullOrEmpty(stringToReplaceWith))
+            {
+                CheckForNullOrEmptyString(stringToReplaceWith);
+            }
+            return text.Replace(stringToBeReplaced, stringToReplaceWith);
+        }
 
-            if (ageX == ageY)
+        public static string RemoveSubString(string text)
+        {
+            Console.Write("Please enter the substring you want to remove:");
+            string stringToBeRemoved = Console.ReadLine();
+            while (String.IsNullOrEmpty(stringToBeRemoved))
             {
-                Console.WriteLine($"The ages are the same.");
+                CheckForNullOrEmptyString(stringToBeRemoved);
             }
-            else if (ageX > ageY)
+            int i = text.IndexOf(stringToBeRemoved);
+            while(i >= 0)
             {
-                Console.WriteLine($"The first kid is older by {ageX - ageY}");
+                text = text.Remove(i, stringToBeRemoved.Length);
+                i = text.IndexOf(stringToBeRemoved);
             }
-            else
-            {
-                Console.WriteLine($"The first kid is older by {ageY - ageX}");
-            }
+            return text;
         }
 
 
-        /// <summary>
-        /// This function shoul, at least in theory return the sum of some numbers, till you enter 2 identical numbers in a row
-        /// </summary>
-        /// <returns></returns>
-        public static int SumOfNumbersFromUser()
+        public static string CheckForNullOrEmptyString(string stringToCheck)
         {
-            int currentValue = Convert.ToInt32(Console.ReadLine());
-            int previousValue = Convert.ToInt32(Console.ReadLine());
-            int sum = currentValue;
-            if (currentValue == previousValue)
+            while (String.IsNullOrEmpty(stringToCheck))
             {
-                sum = sum + previousValue;
+                Console.WriteLine("You have to write something...try again: ");
+                stringToCheck = Console.ReadLine();
             }
-            while (currentValue != previousValue)
-            {
-                sum = sum + previousValue;
-                previousValue = Convert.ToInt32(Console.ReadLine());
-                currentValue = previousValue;
-            }
-            Console.WriteLine(sum);
-            return sum;
+            return stringToCheck;
         }
     }
 }
