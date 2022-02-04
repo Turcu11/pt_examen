@@ -61,7 +61,7 @@ namespace pt_examen
         public static void ShowResult(string result)
         {
             Console.WriteLine();
-            Console.WriteLine(result);
+            Console.WriteLine($"\"{result}\"");
         }
 
         public static void PrintOptions(string text)
